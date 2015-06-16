@@ -6,7 +6,7 @@ import alsaaudio, time, audioop
 def get_microphone():
     microphone = alsaaudio.PCM(alsaaudio.PCM_CAPTURE,alsaaudio.PCM_NONBLOCK, cardindex=1)
     microphone.setchannels(1)
-    #microphone.setrate(44000)
+    #microphone.setrate(44100)
     microphone.setformat(alsaaudio.PCM_FORMAT_S16_LE)
     microphone.setperiodsize(160)
     return microphone
@@ -15,7 +15,7 @@ def get_microphone():
 # Open the device in playback mode.
 speaker = alsaaudio.PCM(alsaaudio.PCM_PLAYBACK)
 speaker.setchannels(1)
-speaker.setrate(8000)
+speaker.setrate(44100)
 speaker.setformat(alsaaudio.PCM_FORMAT_S16_LE)
 speaker.setperiodsize(160)
 
