@@ -34,7 +34,7 @@ actions = [
 def listen():
     sounds = []
     print 'listening'
-    #play_from_file('im_listening.wav')
+    play_from_file('im_listening.wav')
     microphone = get_microphone()
     # Read data from device
     begin = time.time()
