@@ -23,15 +23,16 @@ def is_silence(sound):
     return audioop.max(sound, 2) < 900
 
 actions = [
-    ('listen',        3),
-    ('play_back',     2),
-    ('say_something', 5),
+    ('listen',        2),
+    ('play_back',     1),
+    ('say_something', 3),
+    ('do_nothing',    4),
 ]
 
 def listen():
     sounds = []
     print 'listening'
-    play_from_file('im_listening')
+    #play_from_file('im_listening.wav')
     microphone = get_microphone()
     # Read data from device
     begin = time.time()
@@ -82,5 +83,7 @@ while True:
         played = True
     elif action == 'say_something':
         say_something()
+    elif action == 'do_nothing':
+        time.sleep(5)
     time.sleep(0.5)
 
