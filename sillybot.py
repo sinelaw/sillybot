@@ -4,9 +4,9 @@ import os
 import alsaaudio, time, audioop
 
 def get_microphone():
-    microphone = alsaaudio.PCM(alsaaudio.PCM_CAPTURE,alsaaudio.PCM_NONBLOCK)
+    microphone = alsaaudio.PCM(alsaaudio.PCM_CAPTURE,alsaaudio.PCM_NONBLOCK, cardindex=1)
     microphone.setchannels(1)
-    microphone.setrate(8000)
+    #microphone.setrate(44000)
     microphone.setformat(alsaaudio.PCM_FORMAT_S16_LE)
     microphone.setperiodsize(160)
     return microphone

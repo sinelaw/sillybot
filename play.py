@@ -2,14 +2,6 @@
 
 import alsaaudio, time, audioop
 
-def get_microphone():
-    microphone = alsaaudio.PCM(alsaaudio.PCM_CAPTURE,alsaaudio.PCM_NONBLOCK)
-    microphone.setchannels(1)
-    microphone.setrate(8000)
-    microphone.setformat(alsaaudio.PCM_FORMAT_S16_LE)
-    microphone.setperiodsize(160)
-    return microphone
-
 
 # Open the device in playback mode.
 speaker = alsaaudio.PCM(alsaaudio.PCM_PLAYBACK)
