@@ -1,5 +1,4 @@
 # pyalsaaudio
-import sys
 
 import alsaaudio, time, audioop
 
@@ -20,29 +19,14 @@ speaker.setformat(alsaaudio.PCM_FORMAT_S16_LE)
 speaker.setperiodsize(160)
 
 def is_silence(sound):
-    return audioop.max(sound, 2) < 1000
+    return audioop.max(sound, 2) < 900
 
 def record_stuff(filename):
-    # Read data from device
-    print 'press enter to start'
-    sys.stdin.readline()
-    print 'recording until silence'
-    microphone = get_microphone()
-    sounds = []
-    begin = time.time()
-    while True:
-        l,sound = microphone.read()
-        if l:
-            if is_silence(sound) and (time.time() - begin > 3):
-                break
-            if not is_silence(sound):
-                sounds.append(sound)
-
-    with open(filename, 'w') as f:
-        for sound in sounds:
-            f.write(sound)
+    with open(filename, 'r') as f:
+        speaker.write(f.read())
 
 
 
+import sys
 if __name__ == '__main__':
     record_stuff(*sys.argv[1:])

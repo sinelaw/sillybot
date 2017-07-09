@@ -1,5 +1,6 @@
 # pyalsaaudio
-
+import random
+import os
 import alsaaudio, time, audioop
 
 def get_microphone():
@@ -21,8 +22,9 @@ speaker.setperiodsize(160)
 def is_silence(sound):
     return audioop.max(sound, 2) < 900
 
-waiting = 500000
-while True:
+actions = ['listen', 'play_back', 'say_something']
+
+def listen():
     sounds = []
     microphone = get_microphone()
     # Read data from device
@@ -31,12 +33,35 @@ while True:
     while True:
         l,sound = microphone.read()
         if l:
-            if is_silence(sound):
+            if is_silence(sound) and (time.time() - begin) > 3:
                 break
             sounds.append(sound)
+    return sounds
 
-    print 'talking'
+def play_back(sounds):
     for sound in sounds:
         speaker.write(sound)
+
+def say_something():
+    sound_names = os.listdir('sounds')
+    picked = random.choice(sound_names)
+    print picked
+    with open(os.path.join('sounds', picked), 'r') as f:
+        speaker.write(f.read())
+
+waiting = 500000
+sounds = []
+while True:
+    action = random.choice(actions)
+    if action == 'listen':
+        print 'listening'
+        sounds.extend(listen())
+    elif action == 'play_back':
+        print 'playing back'
+        play_back(sounds)
+        sounds = []
+    elif action == 'say_something':
+        print 'saying something'
+        say_something()
     time.sleep(0.5)
 
