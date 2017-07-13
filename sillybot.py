@@ -22,7 +22,11 @@ speaker.setperiodsize(160)
 def is_silence(sound):
     return audioop.max(sound, 2) < 900
 
-actions = ['listen', 'play_back', 'say_something']
+actions = [
+    ('listen',        3),
+    ('play_back',     3),
+    ('say_something', 4),
+]
 
 def listen():
     sounds = []
@@ -49,19 +53,28 @@ def say_something():
     with open(os.path.join('sounds', picked), 'r') as f:
         speaker.write(f.read())
 
+def choose_action(actions):
+    random_number = int(random.random() * 10)
+    print 'I got: ', random_number
+    base = 0
+    for (action, how_often) in actions:
+        if random_number < base + how_often:
+            return action
+        base += how_often
+
 waiting = 500000
 sounds = []
+played = False
 while True:
-    action = random.choice(actions)
+    action = choose_action(actions)
+    print 'I chose: ', action
     if action == 'listen':
-        print 'listening'
+        if played: sounds = []
         sounds.extend(listen())
     elif action == 'play_back':
-        print 'playing back'
         play_back(sounds)
-        sounds = []
+        played = True
     elif action == 'say_something':
-        print 'saying something'
         say_something()
     time.sleep(0.5)
 
