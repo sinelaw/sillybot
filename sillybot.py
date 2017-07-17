@@ -23,16 +23,16 @@ def is_silence(sound):
     return audioop.max(sound, 2) < 900
 
 actions = [
-    ('listen',        3),
+    ('listen',        2),
     ('play_back',     3),
-    ('say_something', 4),
+    ('say_something', 5),
 ]
 
 def listen():
-    sounds = []
+    print 'listening'
+    play_from_file('im_listening')
     microphone = get_microphone()
     # Read data from device
-    print 'listening'
     begin = time.time()
     while True:
         l,sound = microphone.read()
@@ -46,12 +46,15 @@ def play_back(sounds):
     for sound in sounds:
         speaker.write(sound)
 
+def play_from_file(filename):
+    with open(os.path.join('sounds', filename), 'r') as f:
+        speaker.write(f.read())
+
 def say_something():
     sound_names = os.listdir('sounds')
     picked = random.choice(sound_names)
     print picked
-    with open(os.path.join('sounds', picked), 'r') as f:
-        speaker.write(f.read())
+    play_from_file(picked)
 
 def choose_action(actions):
     random_number = int(random.random() * 10)
