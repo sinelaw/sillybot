@@ -23,12 +23,13 @@ def is_silence(sound):
     return audioop.max(sound, 2) < 900
 
 actions = [
-    ('listen',        2),
-    ('play_back',     3),
+    ('listen',        3),
+    ('play_back',     2),
     ('say_something', 5),
 ]
 
 def listen():
+    sounds = []
     print 'listening'
     play_from_file('im_listening')
     microphone = get_microphone()
@@ -72,7 +73,9 @@ while True:
     action = choose_action(actions)
     print 'I chose: ', action
     if action == 'listen':
-        if played: sounds = []
+        if played:
+            sounds = []
+        played = False
         sounds.extend(listen())
     elif action == 'play_back':
         play_back(sounds)
