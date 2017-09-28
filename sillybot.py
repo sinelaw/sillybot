@@ -3,6 +3,8 @@ import random
 import os
 import alsaaudio, time, audioop
 
+import distance
+
 def get_microphone():
     microphone = alsaaudio.PCM(alsaaudio.PCM_CAPTURE,alsaaudio.PCM_NONBLOCK, cardindex=1)
     microphone.setchannels(1)
@@ -84,6 +86,8 @@ while True:
     elif action == 'say_something':
         say_something()
     elif action == 'do_nothing':
-        time.sleep(5)
-    time.sleep(0.5)
-
+        time.sleep(1)
+    while True:
+        if distance.get() < 100:
+            break
+        time.sleep(0.5)
