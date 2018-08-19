@@ -22,7 +22,10 @@ speaker.setformat(alsaaudio.PCM_FORMAT_S16_LE)
 speaker.setperiodsize(160)
 
 def is_silence(sound):
-    return audioop.max(sound, 2) < 900
+    try:
+        return audioop.max(sound, 2) < 900
+    except:
+        return False
 
 actions = [
     ('listen',        2),
