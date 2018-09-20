@@ -18,20 +18,20 @@ def func():
     setup()
     time.sleep(5)
     while True:
-        #sound = detect_noise.get_sound(microphone)
-        #if detect_noise.is_silence(sound):
+        sound = detect_noise.get_sound(microphone)
+        if detect_noise.is_silence(sound):
         #    time.sleep(0.1)
-        #    for pin in pins:
-        #        GPIO.output(pin, 0)
-        #    continue
+            for pin in pins:
+                GPIO.output(pin, 0)
+            continue
         directions = [(0,0),(0,1),(1,0),(1,1)]
         dir = random.choice(directions)
         start = time.time()
-        cycle = 0.1
+        cycle = 0.2
         target_freq = random.random()
-        freq = 0
+        freq = 0.1
         while freq < target_freq:
-            freq += target_freq / 5 
+            freq += target_freq / 2 
             #print freq
             for i in xrange(2):
                 for pin, val in zip(pins, dir):
