@@ -18,7 +18,7 @@ def is_silence(sound):
     try:
         return audioop.max(sound, 2) < 1200
     except Exception as e:
-        print e
+        print e, repr(sound)
         return True #False
 
 def get_sound(microphone):
