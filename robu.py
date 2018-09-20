@@ -24,23 +24,23 @@ def func():
             for pin in pins:
                 GPIO.output(pin, 0)
             continue
-        directions = [(0,0),(0,1),(1,0),(1,1)]
-        dir = random.choice(directions)
-        start = time.time()
-        cycle = 0.2
-        target_freq = random.random()
-        freq = 0.1
-        while freq < target_freq:
-            freq += target_freq / 2 
-            #print freq
-            for i in xrange(2):
-                for pin, val in zip(pins, dir):
-                    GPIO.output(pin, val)
-                time.sleep(cycle * freq)
-                for pin, val in zip(pins, dir):
-                    GPIO.output(pin, 0)
-                time.sleep(cycle * (1 - freq))
+        while random.random() < 0.9:
+            directions = [(0,0),(0,1),(1,0),(1,1)]
+            direction = random.choice(directions)
+            start = time.time()
+            cycle = 0.2
+            target_freq = random.random()
+            freq = 0.1
+            while freq < target_freq:
+                freq += target_freq / 2
+                #print freq
+                for i in xrange(2):
+                    for pin, val in zip(pins, direction):
+                        GPIO.output(pin, val)
+                    time.sleep(cycle * freq)
+                    for pin, val in zip(pins, direction):
+                        GPIO.output(pin, 0)
+                    time.sleep(cycle * (1 - freq))
 
 if __name__ == '__main__':
     func()
-
