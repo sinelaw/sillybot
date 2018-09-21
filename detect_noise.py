@@ -9,7 +9,7 @@ import alsaaudio, time, audioop
 def get_microphone():
     microphone = alsaaudio.PCM(alsaaudio.PCM_CAPTURE,alsaaudio.PCM_NONBLOCK, cardindex=1)
     microphone.setchannels(1)
-    #microphone.setrate(44100)
+    microphone.setrate(44100)
     microphone.setformat(alsaaudio.PCM_FORMAT_S16_LE)
     microphone.setperiodsize(1024)
     return microphone
@@ -33,4 +33,3 @@ if __name__ == '__main__':
         s = get_sound(m)
         if is_silence(s): pass
         else: print 'ah'
-
