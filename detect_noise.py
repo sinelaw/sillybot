@@ -11,7 +11,7 @@ def get_microphone():
     microphone.setchannels(1)
     microphone.setrate(44100)
     microphone.setformat(alsaaudio.PCM_FORMAT_S16_LE)
-    microphone.setperiodsize(1024)
+    microphone.setperiodsize(160)
     return microphone
 
 def is_silence(sound):

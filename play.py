@@ -6,7 +6,7 @@ def open_speaker():
     # Open the device in playback mode.
     speaker = alsaaudio.PCM(alsaaudio.PCM_PLAYBACK)
     speaker.setchannels(1)
-    speaker.setrate(44000)
+    speaker.setrate(44100)
     speaker.setformat(alsaaudio.PCM_FORMAT_S16_LE)
     speaker.setperiodsize(160)
     return speaker
