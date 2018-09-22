@@ -28,6 +28,7 @@ def func():
     direction = directions[0]
     while True:
         stop()
+        time.sleep(0.5)
         sound = detect_noise.get_sound(microphone)
         if not detect_noise.is_silence(sound):
             direction = random.choice(directions)
