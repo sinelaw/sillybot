@@ -13,29 +13,36 @@ def setup():
     for pin in pins:
         GPIO.output(pin, 0)
 
+def stop():
+    for pin in pins:
+        GPIO.output(pin, 0)
+
 def func():
     microphone = detect_noise.get_microphone()
     setup()
     time.sleep(5)
-    for pin in pins:
-        GPIO.output(pin, 0)
+    stop()
     cycle = 0.2
     speed = 1
     directions = [(0,0), (0,1), (1,0), (1,1)]
     direction = directions[0]
     while True:
+        stop()
         sound = detect_noise.get_sound(microphone)
         if not detect_noise.is_silence(sound):
             direction = random.choice(directions)
             speed = random.random() * 0.5 + 0.5
+            print direction, speed
 
-        for pin, val in zip(pins, direction):
-            GPIO.output(pin, val)
-        time.sleep(cycle * speed)
+        begin = time.time()
+        while time.time() - begin < 1:
+            for pin, val in zip(pins, direction):
+                GPIO.output(pin, val)
+            time.sleep(cycle * speed)
 
-        for pin, val in zip(pins, direction):
-            GPIO.output(pin, 0)
-        time.sleep(cycle * (1 - speed))
+            for pin, val in zip(pins, direction):
+                GPIO.output(pin, 0)
+            time.sleep(cycle * (1 - speed))
 
 if __name__ == '__main__':
     func()
