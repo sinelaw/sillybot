@@ -24,7 +24,7 @@ def func():
     stop()
     cycle = 0.2
     speed = 1
-    directions = [(0,0), (0,1), (1,0), (1,1)]
+    directions = [(1,1), (0,1), (1,0)]
     direction = directions[0]
     while True:
         stop()
@@ -32,7 +32,7 @@ def func():
         if not detect_noise.is_silence(sound):
             direction = random.choice(directions)
             speed = random.random() * 0.5 + 0.5
-            print direction, speed
+        print direction, speed
 
         begin = time.time()
         while time.time() - begin < 1:
