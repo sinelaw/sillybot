@@ -25,16 +25,19 @@ def tell_story():
 def move():
     cycle = 0.2
     speed = 1
-    directions = [(1,1), (0,1), (1,0)]
-    direction = directions[0]
+    directions = [
+        ('forward', (1,1)),
+        ('left', (0,1)),
+        ('right', (1,0))]
+    name, direction = directions[0]
     microphone = detect_noise.get_microphone()
     for i in xrange(5):
         sound = detect_noise.get_sound(microphone)
         if not detect_noise.is_silence(sound):
-            direction = random.choice(directions)
+            name, direction = random.choice(directions)
             speed = random.random() * 0.5 + 0.5
         print direction, speed
-
+        story.synth(name)
         begin = time.time()
         while time.time() - begin < 1:
             for pin, val in zip(pins, direction):
